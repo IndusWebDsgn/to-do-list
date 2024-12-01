@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8f9fa; font-family: 'Arial', sans-serif; }
+        h1 { color: #343a40; }
+        .completed { text-decoration: line-through; color: #6c757d; }
+        .btn-primary { background-color: #4caf50; border: none; }
+        .btn-primary:hover { background-color: #45a049; }
+        .btn-secondary { background-color: #6c757d; border: none; }
+        .btn-secondary:hover { background-color: #5a6268; }
+        .btn-success { background-color: #28a745; }
+        .btn-warning { background-color: #ffc107; color: #212529; }
+        .btn-info { background-color: #17a2b8; color: white; }
+        .btn-info:hover { background-color: #138496; }
+        .btn-danger { background-color: #dc3545; }
+        .list-group-item { border: 1px solid #dee2e6; border-radius: 0.25rem; }
+        #taskInput, #dueDate { border: 2px solid #4caf50; border-radius: 0.5rem; }
+        #taskInput:focus, #dueDate:focus { outline: none; border-color: #45a049; box-shadow: 0 0 5px rgba(72, 201, 176, 0.8); }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">To-Do List</h1>
+        <div class="mb-3">
+            <input type="text" id="ti" class="form-control" placeholder="Enter a task">
+            <input type="date" id="dueDate" class="form-control mt-2" placeholder="Due date">
+            <button class="btn btn-primary mt-2 w-100" onclick="add()">Add Task</button>
+        </div>
+        <div class="mb-3">
+            <button class="btn btn-success w-100" onclick="markSelectedCompleted()">Mark Selected as Completed</button>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Pending Tasks</h3>
+                <ul id="pendingList" class="list-group shadow"></ul>
+            </div>
+            <div class="col-md-6">
+                <h3>Completed Tasks</h3>
+                <ul id="completedList" class="list-group shadow"></ul>
+            </div>
+        </div>
+    </div>
+    <script>
+        let tks = JSON.parse(localStorage.getItem('tks')) || [];
+        window.onload = function () { render(); };
+
+        function add() {
+            const ti = document.getElementById('ti');
+            const dd = document.getElementById('dueDate');
+            const txt = ti.value.trim();
+            const date = dd.value;
+            if (txt && date) {
+                tks.push({ desc: txt, due: date, done: false, selected: false });
+                ti.value = '';
+                dd.value = '';
+                save();
+                render();
+            } else { alert('Enter a task and due date.'); }
+        }
+
+        function render() {
+            const pl = document.getElementById('pendingList');
+            const cl = document.getElementById('completedList');
+            pl.innerHTML = '';
+            cl.innerHTML = '';
+            tks.forEach((t, i) => {
+                const li = document.createElement('li');
+                li.className = `list-group-item d-flex justify-content-between align-items-center ${t.done ? 'completed' : ''}`;
+
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.checked = t.selected;
+                checkbox.className = 'form-check-input me-2';
+                checkbox.onclick = () => toggleSelect(i);
+                li.appendChild(checkbox);
+
+                const sp = document.createElement('span');
+                sp.textContent = `${t.desc} (Due: ${t.due})`;
+                sp.onclick = () => toggleDone(i);
+                li.appendChild(sp);
+
+                const bg = document.createElement('div');
+                const eb = document.createElement('button');
+                eb.className = 'btn btn-info btn-sm me-2';
+                eb.textContent = 'Edit';
+                eb.onclick = () => edit(i);
+                bg.appendChild(eb);
+                const db = document.createElement('button');
+                db.className = 'btn btn-danger btn-sm';
+                db.textContent = 'Delete';
+                db.onclick = () => del(i);
+                bg.appendChild(db);
+                li.appendChild(bg);
+
+                if (t.done) cl.appendChild(li);
+                else pl.appendChild(li);
+            });
+        }
+
+        function toggleDone(i) {
+            tks[i].done = !tks[i].done;
+            save();
+            render();
+        }
+
+        function toggleSelect(i) {
+            tks[i].selected = !tks[i].selected;
+        }
+
+        function markSelectedCompleted() {
+            tks.forEach(t => {
+                if (!t.done && t.selected) t.done = true;
+                t.selected = false;
+            });
+            save();
+            render();
+        }
+
+        function edit(i) {
+            const desc = prompt('Edit task:', tks[i].desc);
+            const due = prompt('Edit due date (YYYY-MM-DD):', tks[i].due);
+            if (desc !== null && due !== null) {
+                tks[i].desc = desc.trim();
+                tks[i].due = due.trim();
+                save();
+                render();
+            }
+        }
+
+        function del(i) {
+            tks.splice(i, 1);
+            save();
+            render();
+        }
+
+        function save() {
+            localStorage.setItem('tks', JSON.stringify(tks));
+    }
+    </script>
+</body>
+</html>
