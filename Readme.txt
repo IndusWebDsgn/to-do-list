@@ -1,64 +1,72 @@
-To-Do List App
-This app helps you manage tasks easily. You can add, edit, complete, and delete tasks, and organize them into Pending and Completed lists.
+# To-Do List App  
 
-Features
-Add Tasks: Write a task and set a due date.
+The **To-Do List App** is designed to make managing tasks simple and efficient. It allows you to add, edit, complete, and delete tasks, organizing them into **Pending** and **Completed** lists for easy access and tracking.
 
-Pending/Completed Tasks: Automatically separates tasks based on their status.
+---
 
-Mark as Completed: Select tasks and mark them as done with one click.
+## Features  
 
-Edit/Delete Tasks: Change task details or remove them.
+### Add Tasks  
+You can quickly add a task by typing it into the input box and setting a due date. The task will then appear in your **Pending** list.
 
-Local Storage: Tasks are saved in your browser, so they stay even after refreshing the page.
+### Pending and Completed Tasks  
+Tasks are automatically sorted into **Pending** or **Completed** lists based on their status, making it easy to track what’s left to do.
 
-Responsive Design: Works well on mobile devices with a clean layout.
+### Mark as Completed  
+Select tasks using checkboxes in the Pending list, then mark them as completed with a single click.
 
-How It Works
-Adding a Task:
+### Edit and Delete Tasks  
+Tasks are flexible! You can edit their details whenever needed or delete them entirely if they’re no longer relevant.
 
-Write the task in the input box.
+### Local Storage  
+All tasks are saved in your browser's Local Storage, ensuring your data persists even after refreshing the page.
 
-Pick a due date.
+### Responsive Design  
+The app is built with mobile-friendly, responsive design, offering a clean and user-friendly experience on any device.
 
-Click "Add Task" to add it to the Pending list.
+---
 
-Completing a Task:
+## How It Works  
 
-Select tasks with checkboxes in the Pending list.
+### Adding a Task  
+1. Write the task in the input box.  
+2. Pick a due date.  
+3. Click **"Add Task"** to move it to the Pending list.  
 
-Click "Mark as Completed" to move them to the Completed list.
+### Completing a Task  
+1. Select the task(s) using the checkboxes in the Pending list.  
+2. Click **"Mark as Completed"** to shift them to the Completed list.  
 
-Editing a Task:
+### Editing a Task  
+1. Click the **Edit** button next to a task.  
+2. Update the task details as needed.  
 
-Click "Edit" next to a task.
+### Deleting a Task  
+1. Click the **Delete** button next to a task to remove it from the list.  
 
-Update the task details.
+### Task Toggle  
+Clicking on a task allows you to easily move it back and forth between the **Pending** and **Completed** lists.
 
-Deleting a Task:
+### Data Persistence  
+Your tasks are stored locally in the browser, meaning they’ll remain intact even after you refresh or close the page.
 
-Click "Delete" next to a task to remove it.
+---
 
-Task Toggle:
+## File Structure  
 
-Click a task to move it between Pending and Completed lists.
+- **HTML**: Defines the app’s layout using Bootstrap classes for structure and design.  
+- **CSS**: Provides custom styling for buttons and the overall appearance.  
+- **JavaScript**: Handles the app’s core functionality, including managing tasks and saving data in Local Storage.  
 
-Data Persistence:
+---
 
-Tasks are saved in the browser's Local Storage, so they stay even after a page refresh.
+## Technologies Used  
 
-File Structure
-HTML: Contains the layout with Bootstrap classes.
+- **HTML5**: For structuring the application.  
+- **CSS3**: To style and enhance the app’s visual appeal.  
+- **Bootstrap 5**: Ensures a responsive and mobile-friendly design.  
+- **JavaScript**: Implements functionality and task management logic.  
 
-CSS: Styles for appearance and custom buttons.
+---  
 
-JavaScript: Manages tasks and saves them in Local Storage.
-
-Technologies Used
-HTML5: Structure
-
-CSS3: Styling
-
-Bootstrap 5: Responsive design
-
-JavaScript: Functionality.
+This app is a simple yet powerful way to stay organized, whether you're managing personal tasks or work projects.
